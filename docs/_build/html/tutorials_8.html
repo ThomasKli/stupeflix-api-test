@@ -1,0 +1,226 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Time Margins &mdash; Stupeflix API 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Stupeflix API 1.0 documentation" href="index.html" />
+    <link rel="up" title="Tutorials" href="tutorials.html" />
+    <link rel="prev" title="Animators" href="tutorials_7.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tutorials_7.html" title="Animators"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Stupeflix API 1.0 documentation</a> &raquo;</li>
+          <li><a href="tutorials.html" accesskey="U">Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <link rel="stylesheet" href="http://static.stupeflix.com/play/1.2/style-min.css" type="text/css" charset="utf-8"/><div class="section" id="id1">
+<h1>Time Margins<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="explanation">
+<h2>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">¶</a></h2>
+<p>Duration computation is an important part of the Stupeflix Video XML Language processing.</p>
+<p>Margins are there to position in time the different parts of a video. The three parameters are called <tt class="docutils literal"><span class="pre">margin-start</span></tt> <tt class="docutils literal"><span class="pre">margin-end</span></tt> and <tt class="docutils literal"><span class="pre">margin-both</span></tt>.</p>
+<p>Margins are relative to a container. This container can be anything except a sequence (or body, which is a sequence too).</p>
+<p>Margins are the time equivalent to CSS margins. They must be greater than or equal to zero.
+Four values are related by the following: <tt class="docutils literal"><span class="pre">fatherDuration</span> <span class="pre">=</span> <span class="pre">margin-start</span> <span class="pre">+</span> <span class="pre">duration</span> <span class="pre">+</span> <span class="pre">margin-end</span></tt></p>
+<p>So, if you specify only margin-start or margin-end, duration will take all the remaining time. If you specify margin-start and duration, margin-end will be computed accordingly. If fatherDuration is fixed, then some part of the children may be truncated.</p>
+<p>You cannot specify at the same time margin-start, duration and margin-end, or margin-both and duration. You will have to specify instead fatherDuration and two of the three parameters.</p>
+<p>Let&#8217;s start with some examples.</p>
+</div>
+<div class="section" id="basic-examples">
+<h2>Basic examples<a class="headerlink" href="#basic-examples" title="Permalink to this headline">¶</a></h2>
+<p>The total video length will be 4.0 seconds, the first second is black, the last two seconds are black too.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;stack</span> <span class="na">duration=</span><span class="s">&quot;4.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;overlay</span>  <span class="na">margin-start=</span><span class="s">&quot;1.0&quot;</span> <span class="na">margin-end=</span><span class="s">&quot;2.0&quot;</span> <span class="na">width=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Monument_Valley.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+<span class="nt">&lt;/stack&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <stack duration="4.0">
+      <overlay  margin-start="1.0" margin-end="2.0" width="1.0">
+        <image filename="http://assets.stupeflix.com/code/images/Monument_Valley.jpg"/>
+      </overlay>
+    </stack>
+--></div><p>The total video length will be 4.0 seconds, the first two seconds are black.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;stack</span> <span class="na">duration=</span><span class="s">&quot;4.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;overlay</span>  <span class="na">duration=</span><span class="s">&quot;2.0&quot;</span> <span class="na">margin-end=</span><span class="s">&quot;0.0&quot;</span> <span class="na">width=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Monument_Valley.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+<span class="nt">&lt;/stack&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <stack duration="4.0">
+      <overlay  duration="2.0" margin-end="0.0" width="1.0">
+        <image filename="http://assets.stupeflix.com/code/images/Monument_Valley.jpg"/>
+      </overlay>
+    </stack>
+--></div></div>
+<div class="section" id="element-duration-dependencies">
+<h2>Element duration dependencies<a class="headerlink" href="#element-duration-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>In this example, the duration is fixed by the video element (taking into account that the video is speedup by a factor of 2.0), and so the text duration will be adapted, using video duration decreased by the margins both at start and at the end.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;stack&gt;</span>
+  <span class="nt">&lt;overlay</span> <span class="na">width=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;video</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/masking/sky_timelapse.mp4&quot;</span> <span class="na">speed=</span><span class="s">&quot;2.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+  <span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;zone&quot;</span> <span class="na">height=</span><span class="s">&quot;0.1&quot;</span> <span class="na">margin-both=</span><span class="s">&quot;2.0&quot;</span><span class="nt">&gt;</span>Sky Time Lapse<span class="nt">&lt;/text&gt;</span>
+<span class="nt">&lt;/stack&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <stack>
+      <overlay width="1.0">
+        <video filename="http://assets.stupeflix.com/code/tutorials/masking/sky_timelapse.mp4" speed="2.0"/>
+      </overlay>
+      <text type="zone" height="0.1" margin-both="2.0">Sky Time Lapse</text>
+    </stack>
+--></div><p>In a second example, we use margins on animators for the text. The actual duration of the text is</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;stack&gt;</span>
+  <span class="nt">&lt;overlay</span> <span class="na">width=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;video</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/masking/sky_timelapse.mp4&quot;</span> <span class="na">speed=</span><span class="s">&quot;2.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+  <span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;zone&quot;</span> <span class="na">height=</span><span class="s">&quot;0.1&quot;</span> <span class="na">left=</span><span class="s">&quot;0.02&quot;</span><span class="nt">&gt;</span>Sky Time Lapse
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-in&quot;</span> <span class="na">direction=</span><span class="s">&quot;left&quot;</span> <span class="na">margin-start=</span><span class="s">&quot;1.5&quot;</span> <span class="na">duration=</span><span class="s">&quot;2.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-out&quot;</span> <span class="na">direction=</span><span class="s">&quot;left&quot;</span> <span class="na">margin-end=</span><span class="s">&quot;1.5&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/text&gt;</span>
+<span class="nt">&lt;/stack&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <stack>
+      <overlay width="1.0">
+        <video filename="http://assets.stupeflix.com/code/tutorials/masking/sky_timelapse.mp4" speed="2.0"/>
+      </overlay>
+      <text type="zone" height="0.1" left="0.02">Sky Time Lapse
+        <animator type="slide-in" direction="left" margin-start="1.5" duration="2.0"/>
+        <animator type="slide-out" direction="left" margin-end="1.5" duration="1.0"/>
+      </text>
+    </stack>
+--></div><p>In the next example, we use margins on the filter : the filter tint is stuck on the white color only after one second. The animator is in fact 1 second shifted.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;stack&gt;</span>
+  <span class="nt">&lt;overlay</span> <span class="na">width=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;video</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/masking/sky_timelapse.mp4&quot;</span> <span class="na">speed=</span><span class="s">&quot;2.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;filter</span> <span class="na">type=</span><span class="s">&quot;tint&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span> <span class="na">margin-start=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;key</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span> <span class="na">whiteColor=</span><span class="s">&quot;#ffffff&quot;</span><span class="nt">/&gt;</span>
+         <span class="nt">&lt;key</span> <span class="na">time=</span><span class="s">&quot;3.0&quot;</span> <span class="na">whiteColor=</span><span class="s">&quot;#00ff00&quot;</span><span class="nt">/&gt;</span>
+         <span class="nt">&lt;key</span> <span class="na">time=</span><span class="s">&quot;6.0&quot;</span> <span class="na">whiteColor=</span><span class="s">&quot;#ffff00&quot;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;/animator&gt;</span>
+    <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+<span class="nt">&lt;/stack&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <stack>
+      <overlay width="1.0">
+        <video filename="http://assets.stupeflix.com/code/tutorials/masking/sky_timelapse.mp4" speed="2.0"/>
+        <filter type="tint">
+           <animator type="custom" margin-start="1.0">
+             <key time="0.0" whiteColor="#ffffff"/>
+             <key time="3.0" whiteColor="#00ff00"/>
+             <key time="6.0" whiteColor="#ffff00"/>
+           </animator>
+        </filter>
+      </overlay>
+    </stack>
+--></div><script type="text/javascript" charset="utf-8" src="http://static.stupeflix.com/play/1.2/play-min.js"></script></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Time Margins</a><ul>
+<li><a class="reference internal" href="#explanation">Explanation</a></li>
+<li><a class="reference internal" href="#basic-examples">Basic examples</a></li>
+<li><a class="reference internal" href="#element-duration-dependencies">Element duration dependencies</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorials_7.html"
+                        title="previous chapter">Animators</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tutorials_8.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tutorials_7.html" title="Animators"
+             >previous</a> |</li>
+        <li><a href="index.html">Stupeflix API 1.0 documentation</a> &raquo;</li>
+          <li><a href="tutorials.html" >Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Thomas.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

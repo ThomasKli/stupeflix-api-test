@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Audio, Voice Over &amp; Text-To-Speech &mdash; Stupeflix API 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Stupeflix API 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Tutorials" href="../tutorials.html" />
+    <link rel="next" title="Masking" href="masking.html" />
+    <link rel="prev" title="Animators" href="animators.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="masking.html" title="Masking"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="animators.html" title="Animators"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Stupeflix API 1.0 documentation</a> &raquo;</li>
+          <li><a href="../tutorials.html" accesskey="U">Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <link rel="stylesheet" href="http://static.stupeflix.com/play/1.2/style-min.css" type="text/css" charset="utf-8"/><div class="section" id="audio-voice-over-text-to-speech">
+<h1>Audio, Voice Over &amp; Text-To-Speech<a class="headerlink" href="#audio-voice-over-text-to-speech" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Audio<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>What would be video without audio ? Fortunately, handling multiple audio tracks is built-in the SXML.</p>
+<p>So what can you do ?</p>
+<ul class="simple">
+<li>integrate an arbitrary number of audio tracks in the stack-sequence hierarchy</li>
+<li>superpose several audio tracks at the same time</li>
+<li>adjust volume</li>
+<li>add fade-in / fade-out effects</li>
+<li>skip the first n seconds in the audio track</li>
+</ul>
+<p>In addition, you can also produce audio tracks, using speech synthesis. Finally, by default, every video you add in an effect or an overlay come with its own audio track, which is mixed by default with the other audio tracks.</p>
+<div class="section" id="basic-use-and-a-common-mistake">
+<h3>Basic use, and a common mistake<a class="headerlink" href="#basic-use-and-a-common-mistake" title="Permalink to this headline">¶</a></h3>
+<p>You may want to add an audio track to your video using something similar to:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;effect</span> <span class="na">type=</span><span class="s">&quot;diving&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Double-O-Arch_Arches_National_Park_2.jpg&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Hopetoun_falls.jpg&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Lightning_over_Oradea_Romania_3.jpg&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/effect&gt;</span>
+    <span class="nt">&lt;audio</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/audio/soundtracks/Flypaper.mp3&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/movie&gt;</span>
+</pre></div>
+</div>
+<p>But this is not the way it works : just see the result at <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_sequence.mp4">audio_sequence.mp4</a>.</p>
+<p>The &#8220;body&#8221; xml node is a sequence, and so the audio will be played after the effect finishes, not at the same time. The effect will use its default duration, 5 seconds.</p>
+<p>So the correct way to do so is to add a stack to your xml and place your effect and your audio in it.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;stack&gt;</span>
+      <span class="nt">&lt;effect</span> <span class="na">type=</span><span class="s">&quot;diving&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Double-O-Arch_Arches_National_Park_2.jpg&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Hopetoun_falls.jpg&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/effect&gt;</span>
+      <span class="nt">&lt;audio</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/audio/soundtracks/Flypaper.mp3&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/stack&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/movie&gt;</span>
+</pre></div>
+</div>
+<p>Just remember this point, and using audio will be really easy.</p>
+<p>Here is the result: <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_fullduration.mp4">audio_fullduration.mp4</a>.</p>
+<p>As you can see, the total duration of the video is 3:20, the duration of the music.</p>
+<p>Is this really what we wanted ? Not really. So, let see how to change this.</p>
+</div>
+<div class="section" id="multiple-tracks-audio-as-slave">
+<h3>Multiple tracks: audio as slave<a class="headerlink" href="#multiple-tracks-audio-as-slave" title="Permalink to this headline">¶</a></h3>
+<p>So how can you add several audio at the same time, and how do you force them to adopt the length of the rest of video elements ? Just use the xml structure to do so:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="c">&lt;!-- All music by Josh Woodward, The Simple Life --&gt;</span>
+    <span class="nt">&lt;stack&gt;</span>
+      <span class="nt">&lt;effect</span> <span class="na">type=</span><span class="s">&quot;diving&quot;</span> <span class="na">duration=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Double-O-Arch_Arches_National_Park_2.jpg&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Hopetoun_falls.jpg&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/effect&gt;</span>
+      <span class="nt">&lt;audio</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/audio/soundtracks/Flypaper.mp3&quot;</span> <span class="na">duration=</span><span class="s">&quot;..&quot;</span> <span class="na">fadein=</span><span class="s">&quot;2&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/stack&gt;</span>
+    <span class="nt">&lt;transition</span> <span class="na">type=</span><span class="s">&quot;swirl&quot;</span> <span class="na">duration=</span><span class="s">&quot;2.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;stack&gt;</span>
+      <span class="nt">&lt;effect</span> <span class="na">type=</span><span class="s">&quot;square&quot;</span> <span class="na">duration=</span><span class="s">&quot;15&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Hopetoun_falls.jpg&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Double-O-Arch_Arches_National_Park_2.jpg&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/effect&gt;</span>
+      <span class="nt">&lt;audio</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/audio/soundtracks/ImLettingGo.mp3&quot;</span> <span class="na">duration=</span><span class="s">&quot;..&quot;</span> <span class="na">fadeout=</span><span class="s">&quot;2&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/stack&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/movie&gt;</span>
+</pre></div>
+</div>
+<p>You can find the result here : <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_slave.mp4">audio_slave.mp4</a>.</p>
+<p>This way, the audio is bound to play with the effect.</p>
+<p>Note the <tt class="docutils literal"><span class="pre">duration=&quot;..&quot;</span></tt> directive in the audio tags: it bounds the duration of the audio track to its parent xml node duration. The stack will look for its children to determine its duration, and so it will ignore the audio tag, as this latter rely itself on its parent. So, that&#8217;s the effect node that fix the duration. If you remove this directive, the effect and the stack node duration will be fixed by the audio duration.</p>
+<p>You can see some sample use of fadein and fadeout directives.</p>
+<p>Note that the transition has an effect on audio too : it creates automatically a crossfade between the two soundtracks.</p>
+</div>
+<div class="section" id="multiple-tracks-audio-as-master">
+<h3>Multiple tracks: audio as master<a class="headerlink" href="#multiple-tracks-audio-as-master" title="Permalink to this headline">¶</a></h3>
+<p>So, adding a soundtrack is easy. But what about adding a voiceover when you do not know how long it is because it&#8217;s created using text to speech ? You can play with durations the other way round:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="c">&lt;!-- All music by Josh Woodward, The Simple Life --&gt;</span>
+    <span class="nt">&lt;stack&gt;</span>
+      <span class="nt">&lt;effect</span> <span class="na">type=</span><span class="s">&quot;diving&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Double-O-Arch_Arches_National_Park_2.jpg&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Hopetoun_falls.jpg&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/effect&gt;</span>
+      <span class="nt">&lt;audio</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/audio/soundtracks/Flypaper.mp3&quot;</span> <span class="na">duration=</span><span class="s">&quot;..&quot;</span> <span class="na">fadein=</span><span class="s">&quot;2&quot;</span> <span class="na">fadeout=</span><span class="s">&quot;2&quot;</span> <span class="na">volume=</span><span class="s">&quot;0.1&quot;</span> <span class="na">skip=</span><span class="s">&quot;5&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:julie&quot;</span> <span class="na">margin-end=</span><span class="s">&quot;2.0&quot;</span><span class="nt">&gt;</span>Music by Josh Woodward, Flypaper, from the album The Simple Life. Available on Jamendo dot com. Images from Wikipedia Picture of the Day.<span class="nt">&lt;/audio&gt;</span>
+    <span class="nt">&lt;/stack&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/movie&gt;</span>
+</pre></div>
+</div>
+<p>Here is the result: <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_master.mp4">audio_master.mp4</a>.</p>
+<p>In that sample, the music duration is set to &#8221;..&#8221; , as previously. But we removed the duration from the effect. So, what is the duration of the stack, effect, and music ? It&#8217;s the duration of the last audio track, the voice over. Duration is obtained from the audio file produced by the speech synthetizer. Note the margin-end added to the voice over, to allow some extra time at the end of the voice over and before the end of the video. You can add the same way a &#8220;margin-start&#8221; directive if you want. Finally, we used the volume directive on the music, to put the emphasis on the voice rather than on the music, and we skipped the first 5 seconds of the music.</p>
+</div>
+<div class="section" id="audio-sequences">
+<h3>Audio sequences<a class="headerlink" href="#audio-sequences" title="Permalink to this headline">¶</a></h3>
+<p>You can easily concatenate different audio tracks. Just create as sequence of audio files. Here we use speech synthesis, but it is exactly the same with standard audio files.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;stack&gt;</span>
+      <span class="nt">&lt;effect</span> <span class="na">type=</span><span class="s">&quot;diving&quot;</span> <span class="na">duration=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Double-O-Arch_Arches_National_Park_2.jpg&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Hopetoun_falls.jpg&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/effect&gt;</span>
+      <span class="nt">&lt;sequence&gt;</span>
+         <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:julie&quot;</span><span class="nt">&gt;</span>Hello.<span class="nt">&lt;/audio&gt;</span>
+         <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:paul&quot;</span><span class="nt">&gt;</span>Who are you ?<span class="nt">&lt;/audio&gt;</span>
+         <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:julie&quot;</span><span class="nt">&gt;</span>I am Julie. Don&#39;t you remember ?<span class="nt">&lt;/audio&gt;</span>
+         <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:paul&quot;</span><span class="nt">&gt;</span>No, definitely not.<span class="nt">&lt;/audio&gt;</span>
+      <span class="nt">&lt;/sequence&gt;</span>
+    <span class="nt">&lt;/stack&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/movie&gt;</span>
+</pre></div>
+</div>
+<p>Here is the result: <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_sequence.mp4">audio_sequence.mp4</a>.</p>
+</div>
+<div class="section" id="using-video-with-audio">
+<h3>Using video with audio<a class="headerlink" href="#using-video-with-audio" title="Permalink to this headline">¶</a></h3>
+<p>Remember, when you add a video to an effect or to an overlay, an audio track is automatically created. You can prevent the audio track to be created by specifying audio=&#8221;false&#8221; in the video node.</p>
+<p>Let&#8217;s see some examples:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;effect</span> <span class="na">type=</span><span class="s">&quot;diving&quot;</span> <span class="na">duration=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Double-O-Arch_Arches_National_Park_2.jpg&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;video</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/audio/video/sts120_launch.mov&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/effect&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/movie&gt;</span>
+</pre></div>
+</div>
+<p>The result is here : <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_video.mp4">audio_video.mp4</a>.</p>
+<p>How does it works ? The diving effect has a specified duration, so it imposes it to its children. The video will play after roughly 5 seconds, for 5 seconds, and so will do the related audio track.</p>
+<p>Now, let&#8217;s remove the audio:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;effect</span> <span class="na">type=</span><span class="s">&quot;diving&quot;</span> <span class="na">duration=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Double-O-Arch_Arches_National_Park_2.jpg&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;video</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/audio/video/sts120_launch.mov&quot;</span> <span class="na">audio=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/effect&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/movie&gt;</span>
+</pre></div>
+</div>
+<p>See it in action : <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_video_noaudio.mp4">audio_video_noaudio.mp4</a>.</p>
+<p>Finally, let&#8217;s add an audio track from a video:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;stack&gt;</span>
+      <span class="nt">&lt;audio</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/audio/video/sts120_launch.mov&quot;</span> <span class="na">fadein=</span><span class="s">&quot;2&quot;</span> <span class="na">fadeout=</span><span class="s">&quot;2&quot;</span> <span class="na">duration=</span><span class="s">&quot;..&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;effect</span> <span class="na">type=</span><span class="s">&quot;diving&quot;</span> <span class="na">duration=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/homevideo/images/wiki_Double-O-Arch_Arches_National_Park_2.jpg&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;video</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/tutorials/audio/video/sts120_launch.mov&quot;</span> <span class="na">audio=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/effect&gt;</span>
+    <span class="nt">&lt;/stack&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/movie&gt;</span>
+</pre></div>
+</div>
+<p>Remember, we have to add a stack to be able to superpose the audio with the effect. Then, we have to add <tt class="docutils literal"><span class="pre">duration=&quot;..&quot;</span></tt> to the audio, so it is a slave of its &#8220;stack&#8221; parent. And finally, we set <tt class="docutils literal"><span class="pre">audio=&quot;false&quot;</span></tt> on the video.</p>
+<p>See it now: <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_video_asaudio.mp4">audio_video_asaudio.mp4</a>.</p>
+<p>That was actually a good recapitulation of what we saw earlier today.</p>
+<p>You said easy? I heard you!</p>
+<script type="text/javascript" charset="utf-8" src="http://static.stupeflix.com/play/1.2/play-min.js"></script></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Audio, Voice Over &amp; Text-To-Speech</a><ul>
+<li><a class="reference internal" href="#id1">Audio</a><ul>
+<li><a class="reference internal" href="#basic-use-and-a-common-mistake">Basic use, and a common mistake</a></li>
+<li><a class="reference internal" href="#multiple-tracks-audio-as-slave">Multiple tracks: audio as slave</a></li>
+<li><a class="reference internal" href="#multiple-tracks-audio-as-master">Multiple tracks: audio as master</a></li>
+<li><a class="reference internal" href="#audio-sequences">Audio sequences</a></li>
+<li><a class="reference internal" href="#using-video-with-audio">Using video with audio</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="animators.html"
+                        title="previous chapter">Animators</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="masking.html"
+                        title="next chapter">Masking</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorials/audio.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="masking.html" title="Masking"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="animators.html" title="Animators"
+             >previous</a> |</li>
+        <li><a href="../index.html">Stupeflix API 1.0 documentation</a> &raquo;</li>
+          <li><a href="../tutorials.html" >Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Thomas.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

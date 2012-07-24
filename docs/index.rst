@@ -2,34 +2,15 @@
    sphinx-quickstart on Mon Jul 23 17:12:26 2012.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
-***************
-Getting started
-***************
 
-Ask for an API Key
-=====================
-Log in, go to menu "Keys" and click on "Create a new key", fill all the informations, then click on "create". Your key is generated immediately !
 
-Use our tools
 =============
-
-* [client-side] Play.js is the easiest way to generate videos. `Learn more <http://developer.stupeflix.com/documentation/play_js>`_.
-* [server-side] It includes php, python, ruby and java clients for the API. `Learn more <http://developer.stupeflix.com/documentation/developer_kit>`_.
-
-Start hacking !
-==================
-The developer kit contains an example that you can try.
-Then, we suggest you to read `Video description language <http://developer.stupeflix.com/documentation/video_description_language>`_ to understood how the XML should be build.
-
-Give us your feedback
-========================
-Because making a great service is in our DNA, and because we love our customers. We'll be glad to heard from you ! `Send us a message <http://www.stupeflix.com/contact/?subject=developer>`_.
-
-
-Full Content
-============
+Documentation
+=============
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
-   index
+   get_started
    resources
+   tutorials
+   support

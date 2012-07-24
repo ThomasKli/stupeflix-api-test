@@ -1,0 +1,680 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Animators &mdash; Stupeflix API 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Stupeflix API 1.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">Stupeflix API 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <link rel="stylesheet" href="http://static.stupeflix.com/play/1.2/style-min.css" type="text/css" charset="utf-8"/><div class="section" id="id1">
+<h1>Animators<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Animators can be used in two different contexts:</p>
+<ul class="simple">
+<li>geometric transformations animations: translations, rotations, scale</li>
+<li>parameters animations in filters</li>
+</ul>
+<div class="section" id="geometric-animations">
+<h2>Geometric animations<a class="headerlink" href="#geometric-animations" title="Permalink to this headline">¶</a></h2>
+<p>Geometric animators can be inserted in any node that is drawn or any container</p>
+<ul class="simple">
+<li>sequence (or body, which is only the top level sequence)</li>
+<li>stack</li>
+<li>effect</li>
+<li>text</li>
+<li>overlay</li>
+<li>widget</li>
+<li>sphere</li>
+<li>camera</li>
+</ul>
+<p>A arbitrary number of animators can be stacked in the same node. The geometric transformations will be then applied in the given order, except for the camera where the order is reversed.</p>
+<p>The OpenGL coordinate system is used:</p>
+<img alt="http://assets.stupeflix.com/code/images/cartesian.png" src="http://assets.stupeflix.com/code/images/cartesian.png" />
+<p>Coordinates for the full screen are:</p>
+<ul class="simple">
+<li>x in [-aspectRatio, + aspectRatio]</li>
+<li>y in [-1, +1]</li>
+<li>z = 0</li>
+</ul>
+<p>Where aspectRatio is for example 16/9 = 1.7777777... in the following examples.</p>
+<p>There are two kinds of animators: builtins, and custom. The first ones are already packaged for you. The latter ones are user defined.</p>
+</div>
+<div class="section" id="custom-animators">
+<h2>Custom animators<a class="headerlink" href="#custom-animators" title="Permalink to this headline">¶</a></h2>
+<p>They can be used by specifying the &#8220;custom&#8221; animator type.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+   <span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;/animator&gt;</span>
+</pre></div>
+</div>
+<p>You can then add some <strong>key</strong> xml node in it. Each key must contain a time attribute, expressed in seconds, and an arbitrary combination of attributes &#8220;rot&#8221;, &#8220;orient&#8221;, &#8220;pos&#8221;, or &#8220;scale&#8221; (one of each maximum).</p>
+</div>
+<div class="section" id="translations">
+<h2>Translations<a class="headerlink" href="#translations" title="Permalink to this headline">¶</a></h2>
+<p>A translation is performed using the &#8220;pos&#8221; key. The parameters are the translation along the X,Y and Z dimensions.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;-3.55555555,0,0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0,0,0&quot;</span> <span class="na">time=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0,0,0&quot;</span> <span class="na">time=</span><span class="s">&quot;4.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;3.55555555,0,0&quot;</span> <span class="na">time=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="custom">
+        <key pos="-3.55555555,0,0" time="0.0"/>
+        <key pos="0,0,0" time="1.0"/>
+        <key pos="0,0,0" time="4.0"/>
+        <key pos="3.55555555,0,0" time="5.0"/>
+      </animator>
+    </overlay>
+    -->
+</div></div>
+<div class="section" id="scale">
+<h2>Scale<a class="headerlink" href="#scale" title="Permalink to this headline">¶</a></h2>
+<p>A scaling is performed using the &#8220;scale&#8221; key. The parameters are the scale along the X,Y and Z dimensions. The neutral value is of course 1.0.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">scale=</span><span class="s">&quot;1,1,1&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">scale=</span><span class="s">&quot;1.2,1,1&quot;</span> <span class="na">time=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">scale=</span><span class="s">&quot;1.0,1.2,1&quot;</span> <span class="na">time=</span><span class="s">&quot;4.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">scale=</span><span class="s">&quot;1,1,1&quot;</span> <span class="na">time=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="custom">
+        <key scale="1,1,1" time="0.0"/>
+        <key scale="1.2,1,1" time="1.0"/>
+        <key scale="1.0,1.2,1" time="4.0"/>
+        <key scale="1,1,1" time="5.0"/>
+      </animator>
+    </overlay>
+--></div></div>
+<div class="section" id="rotations">
+<h2>Rotations<a class="headerlink" href="#rotations" title="Permalink to this headline">¶</a></h2>
+<p>A rotation is performed using the rot key. The first parameter in the rot value is the angle, and the following are the axis rotation vector. For example, 360,0,1,0 gives a 360 degrees rotation on the Y (up vertical) axis.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;0,0,1,0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;360,0,1,0&quot;</span> <span class="na">time=</span><span class="s">&quot;5&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="custom">
+        <key rot="0,0,1,0" time="0.0"/>
+        <key rot="360,0,1,0" time="5"/>
+      </animator>
+    </overlay>
+--></div><p>The four parameters are linearly interpolated from a key to the next one, so it may lead to some hard to understand behaviour if you specify things like :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;0,0,1,0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;360,0,1,0&quot;</span> <span class="na">time=</span><span class="s">&quot;2.5&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;360,0,0,1&quot;</span> <span class="na">time=</span><span class="s">&quot;5&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="custom">
+        <key rot="0,0,1,0" time="0.0"/>
+        <key rot="360,0,1,0" time="2.5"/>
+        <key rot="360,0,0,1" time="5"/>
+      </animator>
+    </overlay>
+--></div><p>As you can see, a 360 rotation is applied from 2.5s to 5s, so nothing moves.</p>
+<p>For &#8220;continuous&#8221; rotations like this, you may use quaternion based rotations, using the orient parameter (see below).</p>
+</div>
+<div class="section" id="orientation">
+<h2>Orientation<a class="headerlink" href="#orientation" title="Permalink to this headline">¶</a></h2>
+<p>Orientation is different from rotation in the way it is interpolated. It is based on quaternions, so the rotation between two positions is more &#8220;natural&#8221;, in the sense that it is the &#8220;shortest&#8221; rotation between the two positions. The parameters are the rotation on the X,Y and Z axes (Euler angles).</p>
+<p>It can looks like a simple rotation in some cases:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">orient=</span><span class="s">&quot;0.0,0.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">orient=</span><span class="s">&quot;0.0,180.0,0,0&quot;</span> <span class="na">time=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="custom">
+         <key orient="0.0,0.0,0.0" time="0.0"/>
+         <key orient="0.0,180.0,0,0" time="5.0"/>
+      </animator>
+    </overlay>
+--></div></div>
+<div class="section" id="multiple-values-in-keys">
+<h2>Multiple values in keys<a class="headerlink" href="#multiple-values-in-keys" title="Permalink to this headline">¶</a></h2>
+<p>All keys in an animator must contains exactly the same set of attributes. For example, a key <tt class="docutils literal"><span class="pre">&lt;key</span> <span class="pre">time=&quot;0.0&quot;</span> <span class="pre">pos=&quot;0,0,0&quot;/&gt;</span></tt> is incompatible with a key <tt class="docutils literal"><span class="pre">&lt;key</span> <span class="pre">time=&quot;0.0&quot;</span> <span class="pre">pos=&quot;0,0,0&quot;</span> <span class="pre">rot=&quot;360,0,0,0&quot;/&gt;</span></tt>.</p>
+<p>That said, you can combine several attributes in a key. They will be processed in this order: scale, pos, orient, rot.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0.0,0.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span> <span class="na">rot=</span><span class="s">&quot;0.0,0.0,0.0,1.0&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0.0,0.0,-1.0&quot;</span> <span class="na">time=</span><span class="s">&quot;5.0&quot;</span> <span class="na">rot=</span><span class="s">&quot;360.0,0.0,0.0,1.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="custom">
+         <key pos="0.0,0.0,0.0" time="0.0" rot="0.0,0.0,0.0,1.0"/>
+         <key pos="0.0,0.0,-1.0" time="5.0" rot="360.0,0.0,0.0,1.0"/>
+      </animator>
+    </overlay>
+--></div></div>
+<div class="section" id="builtin-animators">
+<h2>Builtin animators<a class="headerlink" href="#builtin-animators" title="Permalink to this headline">¶</a></h2>
+<p>Those animators are &#8220;shortcuts&#8221; to the most common operations.</p>
+</div>
+<div class="section" id="slide-animators">
+<h2>Slide animators<a class="headerlink" href="#slide-animators" title="Permalink to this headline">¶</a></h2>
+<p>The parameters are:</p>
+<ul class="simple">
+<li>direction : left, right, up, down (default is left)</li>
+<li>duration (default is full duration)</li>
+</ul>
+<p>There are three kinds of slide animators : slide-in, slide-out, and slide.</p>
+<p><tt class="docutils literal"><span class="pre">slide-in</span></tt> and <tt class="docutils literal"><span class="pre">slide-out</span></tt> are in/out animations. <tt class="docutils literal"><span class="pre">slide</span></tt> is animated during the full time.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-in&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="slide-in"/>
+    </overlay>
+--></div><p>Slide in with a duration of 1 second :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay</span> <span class="na">duration=</span><span class="s">&quot;5.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-in&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay duration="5.0">
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="slide-in" duration="1.0"/>
+    </overlay>
+--></div><p>Slide out with a duration of 1 second and direction is up :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay</span> <span class="na">duration=</span><span class="s">&quot;5.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-out&quot;</span> <span class="na">direction=</span><span class="s">&quot;up&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay duration="5.0">
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="slide-out" direction="up" duration="1.0"/>
+    </overlay>
+--></div><p>Slide:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay</span> <span class="na">duration=</span><span class="s">&quot;5.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide&quot;</span> <span class="na">direction=</span><span class="s">&quot;left&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay duration="5.0">
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="slide" direction="left"/>
+    </overlay>
+--></div><p>Of course you can combine several animations on the same overlay:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay</span> <span class="na">duration=</span><span class="s">&quot;5.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-in&quot;</span> <span class="na">direction=</span><span class="s">&quot;left&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-out&quot;</span> <span class="na">direction=</span><span class="s">&quot;down&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay duration="5.0">
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="slide-in" direction="left" duration="1.0"/>
+      <animator type="slide-out" direction="down" duration="1.0"/>
+    </overlay>
+--></div></div>
+<div class="section" id="rotation-animators">
+<h2>Rotation animators<a class="headerlink" href="#rotation-animators" title="Permalink to this headline">¶</a></h2>
+<p>The parameters are:</p>
+<ul class="simple">
+<li>angle, in degrees</li>
+<li>duration (default is full duration)</li>
+</ul>
+<p>There are two kind of rot animators : rot-in, rot-out.</p>
+<p>These animators are similar to slide animators, but with rotations.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;rot-in&quot;</span> <span class="na">angle=</span><span class="s">&quot;360&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="rot-in" angle="360" duration="1"/>
+    </overlay>
+--></div><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;rot-out&quot;</span> <span class="na">angle=</span><span class="s">&quot;360&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="rot-out" angle="360" duration="1"/>
+    </overlay>
+--></div></div>
+<div class="section" id="grow-animators">
+<h2>Grow animators<a class="headerlink" href="#grow-animators" title="Permalink to this headline">¶</a></h2>
+<p>The parameters are:</p>
+<ul class="simple">
+<li>growStart, growEnd: default is 0.0, 0.1</li>
+<li>duration (default is full duration)</li>
+</ul>
+<p>The effect is done by translating the object on the Z axis.</p>
+<p>First, a grow effect on the full duration:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;grow&quot;</span> <span class="na">growStart=</span><span class="s">&quot;-0.3&quot;</span> <span class="na">growEnd=</span><span class="s">&quot;0.0&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="grow" growStart="-0.3" growEnd="0.0" />
+    </overlay>
+--></div><p>Same thing, but shrinking:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;grow&quot;</span> <span class="na">growStart=</span><span class="s">&quot;0.3&quot;</span> <span class="na">growEnd=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="grow" growStart="0.3" growEnd="0.0"/>
+    </overlay>
+--></div><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;grow&quot;</span> <span class="na">growStart=</span><span class="s">&quot;0.0&quot;</span> <span class="na">growEnd=</span><span class="s">&quot;0.1&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="grow" growStart="0.0" growEnd="0.1" duration="1"/>
+    </overlay>
+--></div><p>Same thing at the end:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;grow&quot;</span> <span class="na">growStart=</span><span class="s">&quot;0.1&quot;</span> <span class="na">growEnd=</span><span class="s">&quot;0.0&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span> <span class="na">margin-end=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="grow" growStart="0.1" growEnd="0.0" duration="1.0" margin-end="0.0"/>
+    </overlay>
+--></div></div>
+<div class="section" id="animator-combination">
+<h2>Animator combination<a class="headerlink" href="#animator-combination" title="Permalink to this headline">¶</a></h2>
+<p>An arbitrary number of animators can be chained. The previous example</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0.0,0.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span> <span class="na">rot=</span><span class="s">&quot;0.0,0.0,0.0,1.0&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0.0,0.0,-1.0&quot;</span> <span class="na">time=</span><span class="s">&quot;5.0&quot;</span> <span class="na">rot=</span><span class="s">&quot;360.0,0.0,0.0,1.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<p>is equivalent to this one:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;overlay&gt;</span>
+  <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/surf.jpg&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0.0,0.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0.0,0.0,-1.0&quot;</span> <span class="na">time=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;0.0,0.0,0.0,1.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;360.0,0.0,0.0,1.0&quot;</span> <span class="na">time=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/overlay&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <overlay>
+      <image filename="http://assets.stupeflix.com/code/images/surf.jpg"/>
+      <animator type="custom">
+         <key pos="0.0,0.0,0.0" time="0.0"/>
+         <key pos="0.0,0.0,-1.0" time="5.0"/>
+      </animator>
+        <animator type="custom">
+         <key rot="0.0,0.0,0.0,1.0" time="0.0"/>
+         <key rot="360.0,0.0,0.0,1.0" time="5.0"/>
+      </animator>
+    </overlay>
+--></div></div>
+<div class="section" id="node-hierarchy-and-animators">
+<h2>Node hierarchy and animators<a class="headerlink" href="#node-hierarchy-and-animators" title="Permalink to this headline">¶</a></h2>
+<p>You can use animators at several places in your XML tree, each one will animate a node in the &#8220;scene graph&#8221;.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;stack&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0.0,0.0,-3.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;0.0,0.0,1.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;30.0,1.0,1.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;1.666&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;-30.0,1.0,1.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;3.3333&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;0.0,0.0,1.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+
+  <span class="nt">&lt;overlay&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Monument_Valley.jpg&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;-2.8,2.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;-1.8,1.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/animator&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+  <span class="nt">&lt;overlay&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Ha_long_bay.jpg&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;2.8,2.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;1.8,1.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/animator&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+
+   <span class="nt">&lt;overlay</span> <span class="na">left=</span><span class="s">&quot;auto&quot;</span> <span class="na">right=</span><span class="s">&quot;auto&quot;</span> <span class="na">height=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Lightning_over_Oradea_Romania.jpg&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;-2.8,-2.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;-1.8,-1.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/animator&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+
+
+  <span class="nt">&lt;overlay&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Canyon_de_Chelly_Navajo.jpg&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;2.8,-2.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;1.8,-1.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/animator&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+
+<span class="nt">&lt;/stack&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <stack>
+      <animator type="custom">
+         <key pos="0.0,0.0,-3.0" time="0.0"/>
+      </animator>
+      <animator type="custom">
+         <key rot="0.0,0.0,1.0,0.0" time="0.0"/>
+         <key rot="30.0,1.0,1.0,0.0" time="1.666"/>
+         <key rot="-30.0,1.0,1.0,0.0" time="3.3333"/>
+         <key rot="0.0,0.0,1.0,0.0" time="5.0"/>
+      </animator>
+
+      <overlay>
+        <image filename="http://assets.stupeflix.com/code/images/Monument_Valley.jpg"/>
+        <animator type="custom">
+           <key pos="-2.8,2.1,0.0" time="0.0"/>
+           <key pos="-1.8,1.1,0.0" time="1.0"/>
+        </animator>
+      </overlay>
+      <overlay>
+        <image filename="http://assets.stupeflix.com/code/images/Ha_long_bay.jpg"/>
+        <animator type="custom">
+           <key pos="2.8,2.1,0.0" time="0.0"/>
+           <key pos="1.8,1.1,0.0" time="1.0"/>
+        </animator>
+      </overlay>
+
+       <overlay left="auto" right="auto" height="1.0">
+        <image filename="http://assets.stupeflix.com/code/images/Lightning_over_Oradea_Romania.jpg"/>
+        <animator type="custom">
+           <key pos="-2.8,-2.1,0.0" time="0.0"/>
+           <key pos="-1.8,-1.1,0.0" time="1.0"/>
+        </animator>
+      </overlay>
+
+
+      <overlay>
+        <image filename="http://assets.stupeflix.com/code/images/Canyon_de_Chelly_Navajo.jpg"/>
+        <animator type="custom">
+           <key pos="2.8,-2.1,0.0" time="0.0"/>
+           <key pos="1.8,-1.1,0.0" time="1.0"/>
+        </animator>
+      </overlay>
+
+    </stack>
+--></div><p>Finally, you can mix custom and builtin animators, they have exactly the same role:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;stack&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;0.0,0.0,-3.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;0.0,0.0,1.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;30.0,1.0,1.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;1.666&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;-30.0,1.0,1.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;3.3333&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;key</span> <span class="na">rot=</span><span class="s">&quot;0.0,0.0,1.0,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+
+  <span class="nt">&lt;overlay&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Monument_Valley.jpg&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;-1.8,1.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/animator&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-in&quot;</span> <span class="na">direction=</span><span class="s">&quot;left&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+  <span class="nt">&lt;overlay&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Ha_long_bay.jpg&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;1.8,1.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/animator&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-in&quot;</span> <span class="na">direction=</span><span class="s">&quot;down&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+
+   <span class="nt">&lt;overlay</span> <span class="na">left=</span><span class="s">&quot;auto&quot;</span> <span class="na">right=</span><span class="s">&quot;auto&quot;</span> <span class="na">height=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Lightning_over_Oradea_Romania.jpg&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;-1.8,-1.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/animator&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;slide-in&quot;</span> <span class="na">direction=</span><span class="s">&quot;right&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/overlay&gt;</span>
+
+
+  <span class="nt">&lt;overlay&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">filename=</span><span class="s">&quot;http://assets.stupeflix.com/code/images/Canyon_de_Chelly_Navajo.jpg&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;key</span> <span class="na">pos=</span><span class="s">&quot;1.8,-1.1,0.0&quot;</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/animator&gt;</span>
+    <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;rot-in&quot;</span> <span class="na">angle=</span><span class="s">&quot;90&quot;</span> <span class="na">duration=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/overlay&gt;</span>
+
+<span class="nt">&lt;/stack&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <stack>
+      <animator type="custom">
+         <key pos="0.0,0.0,-3.0" time="0.0"/>
+      </animator>
+      <animator type="custom">
+         <key rot="0.0,0.0,1.0,0.0" time="0.0"/>
+         <key rot="30.0,1.0,1.0,0.0" time="1.666"/>
+         <key rot="-30.0,1.0,1.0,0.0" time="3.3333"/>
+         <key rot="0.0,0.0,1.0,0.0" time="5.0"/>
+      </animator>
+
+      <overlay>
+        <image filename="http://assets.stupeflix.com/code/images/Monument_Valley.jpg"/>
+         <animator type="custom">
+           <key pos="-1.8,1.1,0.0" time="0.0"/>
+        </animator>
+        <animator type="slide-in" direction="left" duration="1.0"/>
+      </overlay>
+      <overlay>
+        <image filename="http://assets.stupeflix.com/code/images/Ha_long_bay.jpg"/>
+        <animator type="custom">
+           <key pos="1.8,1.1,0.0" time="0.0"/>
+        </animator>
+        <animator type="slide-in" direction="down" duration="1.0"/>
+      </overlay>
+
+       <overlay left="auto" right="auto" height="1.0">
+        <image filename="http://assets.stupeflix.com/code/images/Lightning_over_Oradea_Romania.jpg"/>
+        <animator type="custom">
+          <key pos="-1.8,-1.1,0.0" time="0.0"/>
+        </animator>
+        <animator type="slide-in" direction="right" duration="1.0"/>
+       </overlay>
+
+
+      <overlay>
+        <image filename="http://assets.stupeflix.com/code/images/Canyon_de_Chelly_Navajo.jpg"/>
+         <animator type="custom">
+          <key pos="1.8,-1.1,0.0" time="0.0"/>
+        </animator>
+        <animator type="rot-in" angle="90" duration="1.0"/>
+      </overlay>
+
+    </stack>
+
+--></div><script type="text/javascript" charset="utf-8" src="http://static.stupeflix.com/play/1.2/play-min.js"></script></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Animators</a><ul>
+<li><a class="reference internal" href="#geometric-animations">Geometric animations</a></li>
+<li><a class="reference internal" href="#custom-animators">Custom animators</a></li>
+<li><a class="reference internal" href="#translations">Translations</a></li>
+<li><a class="reference internal" href="#scale">Scale</a></li>
+<li><a class="reference internal" href="#rotations">Rotations</a></li>
+<li><a class="reference internal" href="#orientation">Orientation</a></li>
+<li><a class="reference internal" href="#multiple-values-in-keys">Multiple values in keys</a></li>
+<li><a class="reference internal" href="#builtin-animators">Builtin animators</a></li>
+<li><a class="reference internal" href="#slide-animators">Slide animators</a></li>
+<li><a class="reference internal" href="#rotation-animators">Rotation animators</a></li>
+<li><a class="reference internal" href="#grow-animators">Grow animators</a></li>
+<li><a class="reference internal" href="#animator-combination">Animator combination</a></li>
+<li><a class="reference internal" href="#node-hierarchy-and-animators">Node hierarchy and animators</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorials/tutorials_7.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../index.html">Stupeflix API 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Thomas.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

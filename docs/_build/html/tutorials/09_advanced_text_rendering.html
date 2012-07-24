@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Advanced Text Rendering &mdash; Stupeflix API 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Stupeflix API 1.0 documentation" href="../index.html" />
+    <link rel="up" title="Tutorials" href="../tutorials.html" />
+    <link rel="next" title="Alpha Layer" href="10_alpha_layer.html" />
+    <link rel="prev" title="Time Margins" href="08_time_margins.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="10_alpha_layer.html" title="Alpha Layer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="08_time_margins.html" title="Time Margins"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Stupeflix API 1.0 documentation</a> &raquo;</li>
+          <li><a href="../tutorials.html" accesskey="U">Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <link rel="stylesheet" href="http://static.stupeflix.com/play/1.2/style-min.css" type="text/css" charset="utf-8"/><div class="section" id="id1">
+<h1>Advanced Text Rendering<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="layout">
+<h2>Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
+<p>If you want to use right to left languages, create different text layout, mix different text styles, the &#8220;advanced&#8221; text type was introduced just for you.</p>
+<div class="section" id="sample">
+<h3>Sample<a class="headerlink" href="#sample" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;sequence&gt;</span>
+  <span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">fontsize=</span><span class="s">&quot;40&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAA&quot;</span><span class="nt">&gt;</span>עִבְרִית <span class="nt">&lt;/text&gt;</span>
+  <span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">fontsize=</span><span class="s">&quot;40&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAA&quot;</span><span class="nt">&gt;</span>العربية <span class="nt">&lt;/text&gt;</span>
+  <span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">fontsize=</span><span class="s">&quot;40&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAA&quot;</span><span class="nt">&gt;</span>汉语/漢語 <span class="nt">&lt;/text&gt;</span>
+  <span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">fontsize=</span><span class="s">&quot;40&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAA&quot;</span><span class="nt">&gt;</span>日本人<span class="nt">&lt;/text&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span> <span class="na">pos=</span><span class="s">&quot;-1,0,0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/sequence&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <sequence>
+      <text type="advanced" fontsize="40" duration="1" reference="AAAAAAA">עִבְרִית </text>
+      <text type="advanced" fontsize="40" duration="1" reference="AAAAAAA">العربية </text>
+      <text type="advanced" fontsize="40" duration="1" reference="AAAAAAA">汉语/漢語 </text>
+      <text type="advanced" fontsize="40" duration="1" reference="AAAAAAA">日本人</text>
+      <animator type="custom">
+        <key time="0.0" pos="-1,0,0"/>
+      </animator>
+    </sequence>
+--></div></div>
+<div class="section" id="reference-text">
+<h3>Reference text<a class="headerlink" href="#reference-text" title="Permalink to this headline">¶</a></h3>
+<p>To define the bounding box for the text to be drawn, you just have to specify a reference text. This text will be drawn internally and its bounding box will be used to constrain the placement of the text you use in the &#8220;text&#8221; xml tag itself.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAA&quot;</span><span class="nt">&gt;</span>Hello World !<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" reference="AAAAAAA">Hello World !</text>
+--></div><p>In that first example, you can see that the zone defined by &#8220;AAAAAAA&#8221; is too small to contain &#8220;Hello World&#8221;, so an ellipsis (&#8221;...&#8221;) is used to truncate it. It is guaranteed that the text won&#8217;t overflow its bounding box. So, if we set a longer reference text, the ellipsis will disappear.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAAAAAAA&quot;</span><span class="nt">&gt;</span>Hello World !<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World !</text>
+--></div><p>How can you setup easily the right reference text ? The easier is to start with a text tag with no reference text, to check that position and size is ok, and then everything is ok, move it to the &#8220;reference&#8221; attribute:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="nt">&gt;</span>AAAAAAAAAAA<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" >AAAAAAAAAAA</text>
+--></div><p>then, when the reference text is ok in your layout :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAAAAAAA&quot;</span><span class="nt">&gt;</span>Hello World !<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World !</text>
+--></div></div>
+<div class="section" id="text-wrapping-multiline-reference-text">
+<h3>Text wrapping: Multiline Reference text<a class="headerlink" href="#text-wrapping-multiline-reference-text" title="Permalink to this headline">¶</a></h3>
+<p>When you don&#8217;t add a reference text, there is no bounding box at all. When you add a single lined reference text, an ellipsis will be used if the text is too long. But if you specify a multiple lined reference text, it will wrap, and an ellipsis will be used eventually on the last line.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAA&amp;#10;AAAAAA&amp;#10;   AAAAAA&quot;</span><span class="nt">&gt;</span>Hello World ! This text will be truncated<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" reference="AAAA&#10;AAAAAA&#10;   AAAAAA">Hello World ! This text will be truncated</text>
+--></div><p>The wrapping is done on per word basis first, and on a character per character basis if a single word does not fit on the current line.</p>
+</div>
+<div class="section" id="advanced-text-wrapping">
+<h3>Advanced Text wrapping<a class="headerlink" href="#advanced-text-wrapping" title="Permalink to this headline">¶</a></h3>
+<p>If you introduce spaces in the reference text, they will be used to shift the line on the right or on the left, depending on the alignment. This can be used to create complex text wrapping.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;sequence&gt;</span>
+  <span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAA&amp;#10;   AAAAAAAAAAAAAAAAAAAAAAAA&amp;#10;     AAAAAAAAAAAAAAAAAAAAAA&amp;#10;      AAAAAAAAAAAAAAAAAAAAA&amp;#10;      AAAAAAAAAAAAAAAAAAAAA&amp;#10;      AAAAAAAAAAAAAAAAAAAAA&amp;#10;     AAAAAAAAAAAAAAAAAAAAAA&amp;#10;   AAAAAAAAAAAAAAAAAAAAAAAA&amp;#10;AAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;</span><span class="nt">&gt;</span>In text display, line wrap is the feature of continuing on a new line when a line is full, such that each line fits in the viewable window, allowing text to be read from top to bottom without any horizontal scrolling.
+Word wrap is the additional feature of most text editors, word processors, and web browsers, of breaking lines between and not within words, except when a single word is longer than a line<span class="nt">&lt;/text&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span> <span class="na">pos=</span><span class="s">&quot;-1.2,0.8,0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/sequence&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <sequence>
+      <text type="advanced" duration="1" reference="AAAAAAAAAAAAAAAAAAAAAAAAAAA&#10;   AAAAAAAAAAAAAAAAAAAAAAAA&#10;     AAAAAAAAAAAAAAAAAAAAAA&#10;      AAAAAAAAAAAAAAAAAAAAA&#10;      AAAAAAAAAAAAAAAAAAAAA&#10;      AAAAAAAAAAAAAAAAAAAAA&#10;     AAAAAAAAAAAAAAAAAAAAAA&#10;   AAAAAAAAAAAAAAAAAAAAAAAA&#10;AAAAAAAAAAAAAAAAAAAAAAAAAAA">In text display, line wrap is the feature of continuing on a new line when a line is full, such that each line fits in the viewable window, allowing text to be read from top to bottom without any horizontal scrolling.
+    Word wrap is the additional feature of most text editors, word processors, and web browsers, of breaking lines between and not within words, except when a single word is longer than a line</text>
+    <animator type="custom">
+      <key time="0.0" pos="-1.2,0.8,0"/>
+    </animator>
+    </sequence>
+--></div></div>
+<div class="section" id="anchor-point">
+<h3>Anchor point<a class="headerlink" href="#anchor-point" title="Permalink to this headline">¶</a></h3>
+<p>In the last example, we had to introduce an animator to move the text to be viewable. The reason is that the anchor point for the text is the origin of the first character (including spaces), a point situated on its baseline, on its left for left to right languages (see <a class="reference external" href="http://www.freetype.org/freetype2/docs/glyphs/glyphs-3.html">http://www.freetype.org/freetype2/docs/glyphs/glyphs-3.html</a> for more information).</p>
+<p>So, usually, everything will be written under and on the right of this point.</p>
+<p>This is true only when the text is left align. If the text is right aligned, the origin will on the right of the last character of the first line. If the text is centered, the origin will be the center of the line.</p>
+<p>For right to left language, right/left alignment is inverted. The origin of the text is by default the center of the screen, as you can see on these examples:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAA&amp;#10;AAAAAAAAAAAAAAAAAAAAAAAAAA&amp;#10;&quot;</span> <span class="na">align=</span><span class="s">&quot;left&quot;</span><span class="nt">&gt;</span>In text display, line wrap is the feature of continuing on a new line.<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" reference="AAAAAAAAAAAAAAAAAAAAAAAAAAA&#10;AAAAAAAAAAAAAAAAAAAAAAAAAA&#10;" align="left">In text display, line wrap is the feature of continuing on a new line.</text>
+--></div><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAA&amp;#10;AAAAAAAAAAAAAAAAAAAAAAAAAAA&amp;#10;&quot;</span> <span class="na">align=</span><span class="s">&quot;right&quot;</span><span class="nt">&gt;</span>In text display,
+ line wrap is the feature of continuing on a new line.<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" reference="AAAAAAAAAAAAAAAAAAAAAAAAAAA&#10;AAAAAAAAAAAAAAAAAAAAAAAAAAA&#10;" align="right">In text display,
+       line wrap is the feature of continuing on a new line.</text>
+--></div><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAA&amp;#10;AAAAAAAAAAAAAAAAAAAAAAAAAAA&amp;#10;&quot;</span> <span class="na">align=</span><span class="s">&quot;center&quot;</span><span class="nt">&gt;</span>In text display,
+   line wrap is the feature of continuing on a new line.<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" reference="AAAAAAAAAAAAAAAAAAAAAAAAAAA&#10;AAAAAAAAAAAAAAAAAAAAAAAAAAA&#10;" align="center">In text display,
+       line wrap is the feature of continuing on a new line.</text>
+--></div><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAAAAAAAAAAAAAAAA&amp;#10;&quot;</span><span class="nt">&gt;</span>עִבְרִית<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" reference="AAAAAAAAAAAAAAAAAAAAA&#10;">עִבְרִית</text>
+--></div><p>The text that is taken into account for anchoring is actually the reference text, not the the content text. The process is the following:</p>
+<ul class="simple">
+<li>the reference text is splitted into lines</li>
+<li>for each line of this reference text, the bounding box and position is computed</li>
+</ul>
+<p>then the text itself is drawn</p>
+<ul class="simple">
+<li>the align setting is used for each line of text within the bounds of the reference text line</li>
+<li>the text is drawn</li>
+</ul>
+<p>Finally, anchoring is performed using the reference text, so the text is shifted to have the center of the screen matching the origin of the text.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;AAAAAAAAAAAAAAAAAAAAA&amp;#10;&quot;</span> <span class="na">align=</span><span class="s">&quot;right&quot;</span><span class="nt">&gt;</span>עִבְרִית<span class="nt">&lt;/text&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <text type="advanced" duration="1" reference="AAAAAAAAAAAAAAAAAAAAA&#10;" align="right">עִבְרִית</text>
+--></div></div>
+</div>
+<div class="section" id="style">
+<h2>Style<a class="headerlink" href="#style" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;stack&gt;</span>
+  <span class="nt">&lt;text</span> <span class="na">type=</span><span class="s">&quot;advanced&quot;</span> <span class="na">fontsize=</span><span class="s">&quot;20&quot;</span> <span class="na">duration=</span><span class="s">&quot;1&quot;</span> <span class="na">reference=</span><span class="s">&quot;  AAAAAAAAAAAAA&amp;#10;AAAAAAAAAAAAAAA&quot;</span> <span class="na">weight=</span><span class="s">&quot;bold&quot;</span> <span class="na">style=</span><span class="s">&quot;italic&quot;</span> <span class="na">stretch=</span><span class="s">&quot;condensed&quot;</span> <span class="na">face=</span><span class="s">&quot;times&quot;</span> <span class="nt">&gt;</span>In text display, line wrap is the feature of continuing on a new line when a line is full, <span class="nt">&lt;/text&gt;</span>
+  <span class="nt">&lt;animator</span> <span class="na">type=</span><span class="s">&quot;custom&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;key</span> <span class="na">time=</span><span class="s">&quot;0.0&quot;</span> <span class="na">pos=</span><span class="s">&quot;-1.6,0,0&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/animator&gt;</span>
+<span class="nt">&lt;/stack&gt;</span>
+</pre></div>
+</div>
+<div class="ready sxmovie" style="width:640px; height:360px;"><!--
+    <stack>
+      <text type="advanced" fontsize="20" duration="1" reference="  AAAAAAAAAAAAA&#10;AAAAAAAAAAAAAAA" weight="bold" style="italic" stretch="condensed" face="times" >In text display, line wrap is the feature of continuing on a new line when a line is full, </text>
+      <animator type="custom">
+        <key time="0.0" pos="-1.6,0,0"/>
+      </animator>
+    </stack>
+--></div><script type="text/javascript" charset="utf-8" src="http://static.stupeflix.com/play/1.2/play-min.js"></script></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Advanced Text Rendering</a><ul>
+<li><a class="reference internal" href="#layout">Layout</a><ul>
+<li><a class="reference internal" href="#sample">Sample</a></li>
+<li><a class="reference internal" href="#reference-text">Reference text</a></li>
+<li><a class="reference internal" href="#text-wrapping-multiline-reference-text">Text wrapping: Multiline Reference text</a></li>
+<li><a class="reference internal" href="#advanced-text-wrapping">Advanced Text wrapping</a></li>
+<li><a class="reference internal" href="#anchor-point">Anchor point</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#style">Style</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="08_time_margins.html"
+                        title="previous chapter">Time Margins</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="10_alpha_layer.html"
+                        title="next chapter">Alpha Layer</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/tutorials/09_advanced_text_rendering.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="10_alpha_layer.html" title="Alpha Layer"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="08_time_margins.html" title="Time Margins"
+             >previous</a> |</li>
+        <li><a href="../index.html">Stupeflix API 1.0 documentation</a> &raquo;</li>
+          <li><a href="../tutorials.html" >Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Thomas.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

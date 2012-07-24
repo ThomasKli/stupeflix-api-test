@@ -57,8 +57,8 @@
 <h1>Audio, Voice Over &amp; Text-To-Speech<a class="headerlink" href="#audio-voice-over-text-to-speech" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>Audio<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>What would be video without audio ? Fortunately, handling multiple audio tracks is built-in the SXML.</p>
-<p>So what can you do ?</p>
+<p>What would be video without audio? Fortunately, handling multiple audio tracks is built-in the SXML.</p>
+<p>So what can you do?</p>
 <ul class="simple">
 <li>integrate an arbitrary number of audio tracks in the stack-sequence hierarchy</li>
 <li>superpose several audio tracks at the same time</li>
@@ -101,11 +101,11 @@
 <p>Just remember this point, and using audio will be really easy.</p>
 <p>Here is the result: <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_fullduration.mp4">audio_fullduration.mp4</a>.</p>
 <p>As you can see, the total duration of the video is 3:20, the duration of the music.</p>
-<p>Is this really what we wanted ? Not really. So, let see how to change this.</p>
+<p>Is this really what we wanted? Not really. So, let see how to change this.</p>
 </div>
 <div class="section" id="multiple-tracks-audio-as-slave">
 <h3>Multiple tracks: audio as slave<a class="headerlink" href="#multiple-tracks-audio-as-slave" title="Permalink to this headline">¶</a></h3>
-<p>So how can you add several audio at the same time, and how do you force them to adopt the length of the rest of video elements ? Just use the xml structure to do so:</p>
+<p>So how can you add several audio at the same time, and how do you force them to adopt the length of the rest of video elements? Just use the xml structure to do so:</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;body&gt;</span>
     <span class="c">&lt;!-- All music by Josh Woodward, The Simple Life --&gt;</span>
@@ -136,7 +136,7 @@
 </div>
 <div class="section" id="multiple-tracks-audio-as-master">
 <h3>Multiple tracks: audio as master<a class="headerlink" href="#multiple-tracks-audio-as-master" title="Permalink to this headline">¶</a></h3>
-<p>So, adding a soundtrack is easy. But what about adding a voiceover when you do not know how long it is because it&#8217;s created using text to speech ? You can play with durations the other way round:</p>
+<p>So, adding a soundtrack is easy. But what about adding a voiceover when you do not know how long it is because it&#8217;s created using text to speech? You can play with durations the other way round:</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;body&gt;</span>
     <span class="c">&lt;!-- All music by Josh Woodward, The Simple Life --&gt;</span>
@@ -153,7 +153,7 @@
 </pre></div>
 </div>
 <p>Here is the result: <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_master.mp4">audio_master.mp4</a>.</p>
-<p>In that sample, the music duration is set to &#8221;..&#8221; , as previously. But we removed the duration from the effect. So, what is the duration of the stack, effect, and music ? It&#8217;s the duration of the last audio track, the voice over. Duration is obtained from the audio file produced by the speech synthetizer. Note the margin-end added to the voice over, to allow some extra time at the end of the voice over and before the end of the video. You can add the same way a &#8220;margin-start&#8221; directive if you want. Finally, we used the volume directive on the music, to put the emphasis on the voice rather than on the music, and we skipped the first 5 seconds of the music.</p>
+<p>In that sample, the music duration is set to &#8221;..&#8221; , as previously. But we removed the duration from the effect. So, what is the duration of the stack, effect, and music? It&#8217;s the duration of the last audio track, the voice over. Duration is obtained from the audio file produced by the speech synthetizer. Note the margin-end added to the voice over, to allow some extra time at the end of the voice over and before the end of the video. You can add the same way a &#8220;margin-start&#8221; directive if you want. Finally, we used the volume directive on the music, to put the emphasis on the voice rather than on the music, and we skipped the first 5 seconds of the music.</p>
 </div>
 <div class="section" id="audio-sequences">
 <h3>Audio sequences<a class="headerlink" href="#audio-sequences" title="Permalink to this headline">¶</a></h3>
@@ -167,8 +167,8 @@
       <span class="nt">&lt;/effect&gt;</span>
       <span class="nt">&lt;sequence&gt;</span>
          <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:julie&quot;</span><span class="nt">&gt;</span>Hello.<span class="nt">&lt;/audio&gt;</span>
-         <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:paul&quot;</span><span class="nt">&gt;</span>Who are you ?<span class="nt">&lt;/audio&gt;</span>
-         <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:julie&quot;</span><span class="nt">&gt;</span>I am Julie. Don&#39;t you remember ?<span class="nt">&lt;/audio&gt;</span>
+         <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:paul&quot;</span><span class="nt">&gt;</span>Who are you?<span class="nt">&lt;/audio&gt;</span>
+         <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:julie&quot;</span><span class="nt">&gt;</span>I am Julie. Don&#39;t you remember?<span class="nt">&lt;/audio&gt;</span>
          <span class="nt">&lt;audio</span> <span class="na">voice=</span><span class="s">&quot;neospeech:paul&quot;</span><span class="nt">&gt;</span>No, definitely not.<span class="nt">&lt;/audio&gt;</span>
       <span class="nt">&lt;/sequence&gt;</span>
     <span class="nt">&lt;/stack&gt;</span>
@@ -193,7 +193,7 @@
 </pre></div>
 </div>
 <p>The result is here : <a class="reference external" href="http://assets.stupeflix.com/code/tutorials/audio/audio_video.mp4">audio_video.mp4</a>.</p>
-<p>How does it works ? The diving effect has a specified duration, so it imposes it to its children. The video will play after roughly 5 seconds, for 5 seconds, and so will do the related audio track.</p>
+<p>How does it works? The diving effect has a specified duration, so it imposes it to its children. The video will play after roughly 5 seconds, for 5 seconds, and so will do the related audio track.</p>
 <p>Now, let&#8217;s remove the audio:</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;movie</span> <span class="na">service=</span><span class="s">&quot;craftsman-1.0&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;body&gt;</span>

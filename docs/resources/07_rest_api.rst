@@ -4,7 +4,7 @@ REST API
 REST
 ----
 
-That's fine, it means it's easy to create client libraries for a lot of different languages. But it's clearly not enough to know how to use the API ...
+That's fine, it means it's easy to create client libraries for a lot of different languages. But it's clearly not enough to know how to use the API...
 
 URL Schema
 ++++++++++

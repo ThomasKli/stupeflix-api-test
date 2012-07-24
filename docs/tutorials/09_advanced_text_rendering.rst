@@ -48,27 +48,27 @@ To define the bounding box for the text to be drawn, you just have to specify a 
 
 .. code-block:: xml
 
-  <text type="advanced" duration="1" reference="AAAAAAA">Hello World !</text>
+  <text type="advanced" duration="1" reference="AAAAAAA">Hello World!</text>
 
 .. raw:: html
 
   <div class="ready sxmovie" style="width:640px; height:360px;"><!--
-      <text type="advanced" duration="1" reference="AAAAAAA">Hello World !</text>
+      <text type="advanced" duration="1" reference="AAAAAAA">Hello World!</text>
   --></div>
 
 In that first example, you can see that the zone defined by "AAAAAAA" is too small to contain "Hello World", so an ellipsis ("...") is used to truncate it. It is guaranteed that the text won't overflow its bounding box. So, if we set a longer reference text, the ellipsis will disappear.
 
 .. code-block:: xml
 
-  <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World !</text>
+  <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World!</text>
 
 .. raw:: html
 
   <div class="ready sxmovie" style="width:640px; height:360px;"><!--
-      <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World !</text>
+      <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World!</text>
   --></div>
 
-How can you setup easily the right reference text ? The easier is to start with a text tag with no reference text, to check that position and size is ok, and then everything is ok, move it to the "reference" attribute:
+How can you setup easily the right reference text? The easier is to start with a text tag with no reference text, to check that position and size is ok, and then everything is ok, move it to the "reference" attribute:
 
 .. code-block:: xml
 
@@ -84,12 +84,12 @@ then, when the reference text is ok in your layout :
 
 .. code-block:: xml
 
-  <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World !</text>
+  <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World!</text>
 
 .. raw:: html
 
   <div class="ready sxmovie" style="width:640px; height:360px;"><!--
-      <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World !</text>
+      <text type="advanced" duration="1" reference="AAAAAAAAAAAA">Hello World!</text>
   --></div>
 
 Text wrapping: Multiline Reference text
@@ -99,12 +99,12 @@ When you don't add a reference text, there is no bounding box at all. When you a
 
 .. code-block:: xml
 
-  <text type="advanced" duration="1" reference="AAAA&#10;AAAAAA&#10;   AAAAAA">Hello World ! This text will be truncated</text>
+  <text type="advanced" duration="1" reference="AAAA&#10;AAAAAA&#10;   AAAAAA">Hello World! This text will be truncated</text>
 
 .. raw:: html
 
   <div class="ready sxmovie" style="width:640px; height:360px;"><!--
-      <text type="advanced" duration="1" reference="AAAA&#10;AAAAAA&#10;   AAAAAA">Hello World ! This text will be truncated</text>
+      <text type="advanced" duration="1" reference="AAAA&#10;AAAAAA&#10;   AAAAAA">Hello World! This text will be truncated</text>
   --></div>
 
 The wrapping is done on per word basis first, and on a character per character basis if a single word does not fit on the current line.

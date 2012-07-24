@@ -6,7 +6,7 @@ Stupeflix API
 Automatically send videos
 -------------------------
 
-To Youtube, Facebook, Dailymotion, Amazon S3, my own server ...
+To Youtube, Facebook, Dailymotion, Amazon S3, my own server...
 
 Using the Stupeflix API, you can choose the kind of video you want to generate, through a XML file which is send by POST by the createProfiles function. But in the same call, you can choose too to upload the video to several targets : Amazon S3 bucket, http server, and even YouTube, Facebook or Dailymotion. Here are some examples given for PhP. Other languages are supported too, as clients are only a wrappers to generate a XML settings file. The XML Schema can be found here: http://code.stupeflix.com/createprofile.xsd . To have these examples running, you will need the Stupeflix SDK.
 
@@ -52,7 +52,7 @@ Here is a skeleton for video creation / upload. The video definition you want to
     $stupeflix->createProfiles($user, $resource, $profiles);
   ?>
 
-For the following upload code bits, you should replace the $upload = ... line by the provided code. This example show you how to upload to a single target, but you can define several upload objects at once this way:
+For the following upload code bits, you should replace the ``$upload = ...`` line by the provided code. This example show you how to upload to a single target, but you can define several upload objects at once this way:
 
 .. code-block:: php
 

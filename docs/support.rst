@@ -60,7 +60,7 @@ Video Hosting
 Are you hosting videos?
 +++++++++++++++++++++++
 
-  We are just storing the videos for a limited amount of time so you can download it. A lot of very good video hosting services are available, we "just" provide a tool to create videos !
+  We are just storing the videos for a limited amount of time so you can download it. A lot of very good video hosting services are available, we "just" provide a tool to create videos!
 
 For how long are my video definition files hosted?
 ++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -10,9 +10,9 @@ Audio, Voice Over & Text-To-Speech
 Audio
 -----
 
-What would be video without audio ? Fortunately, handling multiple audio tracks is built-in the SXML.
+What would be video without audio? Fortunately, handling multiple audio tracks is built-in the SXML.
 
-So what can you do ?
+So what can you do?
 
 * integrate an arbitrary number of audio tracks in the stack-sequence hierarchy
 * superpose several audio tracks at the same time
@@ -66,12 +66,12 @@ Here is the result: `audio_fullduration.mp4 <http://assets.stupeflix.com/code/tu
 
 As you can see, the total duration of the video is 3:20, the duration of the music.
 
-Is this really what we wanted ? Not really. So, let see how to change this.
+Is this really what we wanted? Not really. So, let see how to change this.
 
 Multiple tracks: audio as slave
 +++++++++++++++++++++++++++++++
 
-So how can you add several audio at the same time, and how do you force them to adopt the length of the rest of video elements ? Just use the xml structure to do so:
+So how can you add several audio at the same time, and how do you force them to adopt the length of the rest of video elements? Just use the xml structure to do so:
 
 .. code-block:: xml
 
@@ -109,7 +109,7 @@ Note that the transition has an effect on audio too : it creates automatically a
 Multiple tracks: audio as master
 ++++++++++++++++++++++++++++++++
 
-So, adding a soundtrack is easy. But what about adding a voiceover when you do not know how long it is because it's created using text to speech ? You can play with durations the other way round:
+So, adding a soundtrack is easy. But what about adding a voiceover when you do not know how long it is because it's created using text to speech? You can play with durations the other way round:
 
 .. code-block:: xml
 
@@ -129,7 +129,7 @@ So, adding a soundtrack is easy. But what about adding a voiceover when you do n
 
 Here is the result: `audio_master.mp4 <http://assets.stupeflix.com/code/tutorials/audio/audio_master.mp4>`_.
 
-In that sample, the music duration is set to ".." , as previously. But we removed the duration from the effect. So, what is the duration of the stack, effect, and music ? It's the duration of the last audio track, the voice over. Duration is obtained from the audio file produced by the speech synthetizer. Note the margin-end added to the voice over, to allow some extra time at the end of the voice over and before the end of the video. You can add the same way a "margin-start" directive if you want. Finally, we used the volume directive on the music, to put the emphasis on the voice rather than on the music, and we skipped the first 5 seconds of the music.
+In that sample, the music duration is set to ".." , as previously. But we removed the duration from the effect. So, what is the duration of the stack, effect, and music? It's the duration of the last audio track, the voice over. Duration is obtained from the audio file produced by the speech synthetizer. Note the margin-end added to the voice over, to allow some extra time at the end of the voice over and before the end of the video. You can add the same way a "margin-start" directive if you want. Finally, we used the volume directive on the music, to put the emphasis on the voice rather than on the music, and we skipped the first 5 seconds of the music.
 
 Audio sequences
 +++++++++++++++
@@ -147,8 +147,8 @@ You can easily concatenate different audio tracks. Just create as sequence of au
         </effect>        
         <sequence>
            <audio voice="neospeech:julie">Hello.</audio>
-           <audio voice="neospeech:paul">Who are you ?</audio>
-           <audio voice="neospeech:julie">I am Julie. Don't you remember ?</audio>
+           <audio voice="neospeech:paul">Who are you?</audio>
+           <audio voice="neospeech:julie">I am Julie. Don't you remember?</audio>
            <audio voice="neospeech:paul">No, definitely not.</audio>
         </sequence>
       </stack>
@@ -177,7 +177,7 @@ Let's see some examples:
 
 The result is here : `audio_video.mp4 <http://assets.stupeflix.com/code/tutorials/audio/audio_video.mp4>`_.
 
-How does it works ? The diving effect has a specified duration, so it imposes it to its children. The video will play after roughly 5 seconds, for 5 seconds, and so will do the related audio track.
+How does it works? The diving effect has a specified duration, so it imposes it to its children. The video will play after roughly 5 seconds, for 5 seconds, and so will do the related audio track.
 
 Now, let's remove the audio:
 

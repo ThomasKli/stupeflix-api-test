@@ -43,7 +43,7 @@ Vector based video description
 
 Vector based graphics are well known. That means that you can scale up them without a loss of precision. In the SXML language, the fundamental idea is the same. However, the idea is pushed a little bit further.
 
-The same SXML file can be used to generate different videos, at different resolution. That's nice, that's exactly the kind of things Vector based graphics are good at. BUT, an issue quickly emerges: what about aspect ratio ? How do you render the video with a 16:9 ratio for a plasma screen, a 4:3 ratio for a web video, or 3:2 ratio for an iPhone ? Do you stitch the video ? It would be ugly.
+The same SXML file can be used to generate different videos, at different resolution. That's nice, that's exactly the kind of things Vector based graphics are good at. BUT, an issue quickly emerges: what about aspect ratio? How do you render the video with a 16:9 ratio for a plasma screen, a 4:3 ratio for a web video, or 3:2 ratio for an iPhone? Do you stitch the video? It would be ugly.
 
 The answer is that everything in the language should be liquid to adapt to the video aspect ratio, much more a web page than classical vector graphics. When you position your overlays, you specify margins, just like in CSS. When you add images in an effect, their aspect ratio is kept. When you use animators, you can ignore the screen ratio and just say "slide-in" or "slide-out".
 
@@ -54,7 +54,7 @@ You will see throughout the upcoming tutorials other examples of this important 
 Conclusion
 ++++++++++
 
-So, that's all for today. Next time, we will talk less about philosophy, and more about action !
+So, that's all for today. Next time, we will talk less about philosophy, and more about action!
 
 
 .. raw:: html

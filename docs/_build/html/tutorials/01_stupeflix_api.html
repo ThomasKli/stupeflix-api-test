@@ -57,7 +57,7 @@
 <span id="id1"></span><h1>Stupeflix API<a class="headerlink" href="#stupeflix-api" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="automatically-send-videos">
 <h2>Automatically send videos<a class="headerlink" href="#automatically-send-videos" title="Permalink to this headline">¶</a></h2>
-<p>To Youtube, Facebook, Dailymotion, Amazon S3, my own server ...</p>
+<p>To Youtube, Facebook, Dailymotion, Amazon S3, my own server...</p>
 <p>Using the Stupeflix API, you can choose the kind of video you want to generate, through a XML file which is send by POST by the createProfiles function. But in the same call, you can choose too to upload the video to several targets : Amazon S3 bucket, http server, and even YouTube, Facebook or Dailymotion. Here are some examples given for PhP. Other languages are supported too, as clients are only a wrappers to generate a XML settings file. The XML Schema can be found here: <a class="reference external" href="http://code.stupeflix.com/createprofile.xsd">http://code.stupeflix.com/createprofile.xsd</a> . To have these examples running, you will need the Stupeflix SDK.</p>
 <div class="section" id="generic-code">
 <h3>Generic code<a class="headerlink" href="#generic-code" title="Permalink to this headline">¶</a></h3>
@@ -98,7 +98,7 @@
 <span class="cp">?&gt;</span><span class="x"></span>
 </pre></div>
 </div>
-<p>For the following upload code bits, you should replace the $upload = ... line by the provided code. This example show you how to upload to a single target, but you can define several upload objects at once this way:</p>
+<p>For the following upload code bits, you should replace the <tt class="docutils literal"><span class="pre">$upload</span> <span class="pre">=</span> <span class="pre">...</span></tt> line by the provided code. This example show you how to upload to a single target, but you can define several upload objects at once this way:</p>
 <div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
   <span class="nv">$upload0</span> <span class="o">=</span> <span class="c1">#################### HERE IS THE UPLOAD SETUP CODE</span>
   <span class="nv">$upload1</span> <span class="o">=</span> <span class="c1">#################### HERE IS THE UPLOAD SETUP CODE</span>

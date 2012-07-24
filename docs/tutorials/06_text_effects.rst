@@ -7,7 +7,7 @@
 Text effects
 ============
 
-Warning: this is still a bit experimental. It will be supported in next releases, so you can use it right now for production deployment. Rendering quality will be improved for specific cases, but it is already a large improvement compared to the previous bitmap based method, as text rendering is now vector-based on a frame-by-frame basis. So, you may say, why it is experimental ? Because we will package it in a better way, so you don't have to manage the nitty-gritty details we describe here. Be brave, that won't be so difficult.
+Warning: this is still a bit experimental. It will be supported in next releases, so you can use it right now for production deployment. Rendering quality will be improved for specific cases, but it is already a large improvement compared to the previous bitmap based method, as text rendering is now vector-based on a frame-by-frame basis. So, you may say, why it is experimental? Because we will package it in a better way, so you don't have to manage the nitty-gritty details we describe here. Be brave, that won't be so difficult.
 
 Reminder: text rendering
 ------------------------
@@ -29,7 +29,7 @@ This is a full screen "Hello World". The principle is simple: the text is turned
 Text rendering: new method
 --------------------------
 
-So how can we improve this ? By drawing frame by frame the text but using vector based methods. To activate it, you should change your xml to:
+So how can we improve this? By drawing frame by frame the text but using vector based methods. To activate it, you should change your xml to:
 
 .. code-block:: xml
 
@@ -45,7 +45,7 @@ So how can we improve this ? By drawing frame by frame the text but using vector
 
 This is a bit verbose, but will be improved in next versions. You can use 40.0 as magic constant, it should be ok in most cases.
 
-The difference should be almost invisible right now. But if you animate the text (zoom, scale ...), the difference will be obvious.
+The difference should be almost invisible right now. But if you animate the text (zoom, scale...), the difference will be obvious.
 
 Effects
 -------

@@ -1,0 +1,10 @@
+{% extends "!layout.html" %}
+
+{% block extrahead %} 
+    <link rel="stylesheet" href="http://static.stupeflix.com/play/1.2/style-min.css" type="text/css" charset="utf-8"/>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+    <script type="text/javascript" charset="utf-8" src="http://static.stupeflix.com/play/1.2/play-min.js"></script>
+{% endblock %}

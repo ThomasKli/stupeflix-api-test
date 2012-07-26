@@ -1,3 +1,5 @@
+.. _video_description_language:
+
 Video Description Language
 ==========================
 

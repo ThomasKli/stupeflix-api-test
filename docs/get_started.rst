@@ -12,14 +12,14 @@ Log in, go to menu "Keys" and click on "Create a new key", fill all the informat
 Use our tools
 =============
 
-* [client-side] Play.js is the easiest way to generate videos. `Learn more <http://developer.stupeflix.com/documentation/play_js>`_.
-* [server-side] It includes php, python, ruby and java clients for the API. `Learn more <http://developer.stupeflix.com/documentation/developer_kit>`_.
+* [client-side] :ref:`play_js` is the easiest way to generate videos.
+* [server-side] :ref:`developer_kit` includes php, python, ruby and java clients for the API.
 
 Start hacking!
 ===============
 
 The developer kit contains an example that you can try.
-Then, we suggest you to read `Video description language <http://developer.stupeflix.com/documentation/video_description_language>`_ to understood how the XML should be build.
+Then, we suggest you to read :ref:`video_description_language` to understood how the XML should be build.
 
 Give us your feedback
 =====================

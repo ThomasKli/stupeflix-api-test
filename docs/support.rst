@@ -47,7 +47,7 @@ Where are the videos generated?
 What kind of formats can I create?
 ++++++++++++++++++++++++++++++++++
 
-  You can use mpeg-2, mpeg-4, h264, 3gp codecs , with flv, mp4, avi, mov, dvd formats (this is not limitative). See `Supported coders, formats <http://developer.stupeflix.com/documentation/supported_coders_formats>`_ for an exhaustive list.
+  You can use mpeg-2, mpeg-4, h264, 3gp codecs , with flv, mp4, avi, mov, dvd formats (this is not limitative). See :ref:`supported_coders_formats` for an exhaustive list.
 
 What is the maximum duration of a video?
 ++++++++++++++++++++++++++++++++++++++++

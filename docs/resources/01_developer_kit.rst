@@ -1,3 +1,5 @@
+.. _developer_kit:
+
 Developer Kit
 =============
 
@@ -21,4 +23,4 @@ Then follow the instructions on the README file.
 Other language
 --------------
 
-Simply use our `REST API <http://developer.stupeflix.com/documentation/rest_api>`_.
+Simply use our :ref:`rest_api`.

@@ -1,3 +1,5 @@
+.. _supported_coders_formats:
+
 Supported coders, formats
 =========================
 

@@ -1,3 +1,5 @@
+.. _xml_editor:
+
 XML Editor
 ==========
 
